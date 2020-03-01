@@ -37,7 +37,6 @@ class FreqExtract:
         x = x - np.average(x)  # zero-centering
 
         n = len(x)
-        print(n)
         tarr = n / float(self.sampling_rate)
         frqarr = np.arange(n) / float(tarr)  # two sides frequency range
 
@@ -49,6 +48,10 @@ class FreqExtract:
         return frqarr, abs(x)
 
 if __name__ == '__main__':
-    wav_input = sys.argv[1]
-    f = FreqExtract(wav_input)
-    f.freq_show()
+    if len(sys.argv) != 2:
+        print("Please try again using the following syntax:")
+        print("$ ./freq_extract.py <input wave file>")
+    else:
+        wav_input = sys.argv[1]
+        f = FreqExtract(wav_input)
+        f.freq_show()
