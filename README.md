@@ -9,10 +9,10 @@ To get a readout of the wave file you're working with, use the following syntax:
     $ ./freq_extract.py <wave file input>
 ```
 You should see output that resembles the following screenshot:
-[![screenshot](https://raw.githubusercontent.com/jonathanmann/beat_extract/master/screen_shots/shot1.png)]
+![screenshot](https://raw.githubusercontent.com/jonathanmann/beat_extract/master/screen_shots/shot1.png)
 
 ## Roadmap
-
+### Frequency Visualization
 ### Frequency Extraction
 ### Extract Chopping
 ### PCA
