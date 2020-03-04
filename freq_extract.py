@@ -20,16 +20,23 @@ class FreqExtract:
         plt.xlabel('time (seconds)')
         plt.ylabel('noise')
 
-        frq, X = self.freq_spec()
+        freq, X = self.freq_spec()
 
-        plt.subplot(2, 1, 2)
-        plt.plot(frq, X, 'b')
+        short_freq = [x for x in freq if x < 1.0]
+        short_X = X[:len(short_freq)]
+
+        plt.subplot(2, 2, 4)
+        plt.plot(short_freq, short_X, 'b')
+        plt.xlabel('Hz-Zoom')
+        plt.ylabel('Freq-Zoom')
+
+        plt.subplot(2, 2, 3)
+        plt.plot(freq, X, 'b')
         plt.xlabel('Hz')
         plt.ylabel('Freq')
         plt.tight_layout()
 
         plt.show()
-
 
     def freq_spec(self):
         # taken almost directly from stack overflow
