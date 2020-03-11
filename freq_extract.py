@@ -6,11 +6,12 @@ import matplotlib.pyplot as plt
 import sys
 
 class FreqExtract:
-    def __init__(self,wav_input):
+    def __init__(self,wav_input,zoom_factor=1.0):
 
         self.sampling_rate, signal = wavfile.read(wav_input)
         self.noise = signal[:, 0]  # use first channel
         self.time = np.arange(len(self.noise)) / float(self.sampling_rate)
+        self.zoom_factor = float(zoom_factor)
 
     def freq_show(self):
         # taken almost directly from stack overflow
@@ -22,7 +23,7 @@ class FreqExtract:
 
         freq, X = self.freq_spec()
 
-        short_freq = [x for x in freq if x < 1.0]
+        short_freq = [x for x in freq if x <= self.zoom_factor]
         short_X = X[:len(short_freq)]
 
         plt.subplot(2, 2, 4)
@@ -55,10 +56,15 @@ class FreqExtract:
         return frqarr, abs(x)
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
+    if len(sys.argv) < 2:
         print("Please try again using the following syntax:")
         print("$ ./freq_extract.py <input wave file>")
+        print("OR")
+        print("$ ./freq_extract.py <input wave file> <zoom factor>")
     else:
         wav_input = sys.argv[1]
-        f = FreqExtract(wav_input)
+        zoom_factor = 1
+        if len(sys.argv) == 3:
+            zoom_factor = sys.argv[2]
+        f = FreqExtract(wav_input,zoom_factor)
         f.freq_show()
